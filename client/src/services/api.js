@@ -58,13 +58,21 @@ export const postService = {
 
   // Create a new post
   createPost: async (postData) => {
-    const response = await api.post('/posts', postData);
+    let config = {};
+    if (postData instanceof FormData) {
+      config.headers = { 'Content-Type': 'multipart/form-data' };
+    }
+    const response = await api.post('/posts', postData, config);
     return response.data;
   },
 
   // Update an existing post
   updatePost: async (id, postData) => {
-    const response = await api.put(`/posts/${id}`, postData);
+    let config = {};
+    if (postData instanceof FormData) {
+      config.headers = { 'Content-Type': 'multipart/form-data' };
+    }
+    const response = await api.put(`/posts/${id}`, postData, config);
     return response.data;
   },
 
